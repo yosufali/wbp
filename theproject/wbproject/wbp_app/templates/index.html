@@ -23,14 +23,68 @@
 
   </head>
   <body>
-  
+
     <div class="container">
+
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
           {% load static %}
           <img class="center_logo" src="{% static "wbp_app/city.jpeg" %}">
         </div>
       </div>
+
+
+      {% if active == False %}
+
+      <div class="alert alert-warning" role="alert">
+        <p> This account is not active. It has most likely been suspended by the admin. </p>
+      </div>
+
+      {% elif valid == False %}
+
+      <div class="alert alert-warning center-block" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true"> &times; </span>
+        </button>
+        <p> Your login credentials do not match any known accounts. Please check them. </p>
+      </div>
+
+      {% endif %}
+
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center">
+
+          <div class="panel panel-default">
+            <div class="panel-heading"> Login to your account </div>
+            <div class="panel-body">
+
+              <form class="form-horizontal" enctype="multipart/form-data" method="POST" action="/login/">
+                {% csrf_token %}
+
+                <div class="input-group">
+                  <span class="input-group-addon"> <i class="glyphicon glyphicon-user"> </i> </span>
+                  <input class="form-control" type="text" placeholder="Username" name="username_login" />
+                </div>
+
+                <br>
+
+                <div class="input-group">
+                  <span class="input-group-addon"> <i class="glyphicon glyphicon-asterisk"> </i> </span>
+                  <input class="form-control" type="password" placeholder="Password" name="password_login" />
+                </div>
+
+                <br>
+
+                <button  type="submit" class="btn btn-default center-block"> Login </button>
+                
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
