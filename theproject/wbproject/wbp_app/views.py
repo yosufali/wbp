@@ -23,3 +23,7 @@ def login_user(request):
 			return render(request, 'index.html', {'active': False})
 	else:
 		return render(request, 'index.html', {'valid': False})
+
+def logout_user(request):
+	logout(request)
+	return render(request, 'index.html', {'loggedout': True})

@@ -37,6 +37,9 @@
       {% if active == False %}
 
       <div class="alert alert-warning" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true"> &times; </span>
+        </button>
         <p> This account is not active. It has most likely been suspended by the admin. </p>
       </div>
 
@@ -47,6 +50,15 @@
           <span aria-hidden="true"> &times; </span>
         </button>
         <p> Your login credentials do not match any known accounts. Please check them. </p>
+      </div>
+
+      {% elif loggedout == True %}
+
+      <div class="alert alert-success center-block" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true"> &times; </span>
+        </button>
+        <p> You have successfully logged out. </p>
       </div>
 
       {% endif %}
