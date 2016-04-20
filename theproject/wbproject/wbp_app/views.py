@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 
-# Create your views here.
 def index(request):
 	'''
 	This method redirects to a users profile if they are logged in,
@@ -14,19 +13,23 @@ def index(request):
 def login_user(request):
 	''' The method authenticates the user and logs them in if they exist. '''
 
-	username = request.POST['username_login']
-	password = request.POST['password_login']
+	if request.user.is_authenticated():
+		return render(request, 'profile.html', {'user': request.user})
+	elif request.method == 'POST':	
+		username = request.POST['username_login']
+		password = request.POST['password_login']
 
-	user = authenticate(username=username, password=password)
+		user = authenticate(username=username, password=password)
 
-	if user is not None:
-		if user.is_active:
-			login(request, user)
-			return render(request, 'profile.html', {'user': user})
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return render(request, 'profile.html', {'user': user})
+			else:
+				return render(request, 'index.html', {'active': False})
 		else:
-			return render(request, 'index.html', {'active': False})
-	else:
-		return render(request, 'index.html', {'valid': False})
+			return render(request, 'index.html', {'valid': False})
+	return render(request, 'index.html', {})
 
 def logout_user(request):
 	logout(request)
