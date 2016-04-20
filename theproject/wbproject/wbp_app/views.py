@@ -3,8 +3,12 @@ from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def index(request):
-	''' This method simply loads the home page where users can login to the system. '''
-	# TODO: If they'relogged in already, redirect to thier profile page.
+	'''
+	This method redirects to a users profile if they are logged in,
+	otherwise, it loads the home (login) page
+	'''
+	if request.user.is_authenticated():
+		return render(request, 'profile.html', {})
 	return render(request, 'index.html', {})
 
 def login_user(request):
