@@ -4,6 +4,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Profile(models.Model):
+    '''
+    Custom profile thats linked to the default USer class which
+    allows me to extend it and have extra fields for each user
+    '''
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=5, null=True, blank=True)
     role = models.CharField(max_length=50, null=True, blank=True)

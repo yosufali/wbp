@@ -4,8 +4,11 @@ from .models import Profile
 # Register your models here.
 
 class ProfileAdmin(admin.ModelAdmin):
-	list_display = ["user", "title", "role", "extension_no", "mobile_no",
-				"emergency_contact", "phd_status", "employable", "max_hours"]
+    '''
+    Shows the Profile fields in the default Django administration
+    '''
+    list_display = ["user", "title", "role", "extension_no", "mobile_no",
+                "emergency_contact", "phd_status", "employable", "max_hours"]
 
-#admin.site.register(Profile)
+# Actually registers the above list wit the Django admin
 admin.site.register(Profile, ProfileAdmin)

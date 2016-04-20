@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 
 def index(request):
 	'''
@@ -12,7 +11,10 @@ def index(request):
 	return render(request, 'index.html', {})
 
 def login_user(request):
-	''' The method authenticates the user and logs them in if they exist. '''
+	''' 
+	This method authenticates the user and logs them in if they exist,
+	otherwise it redirects them to the home page to login.
+	'''
 
 	if request.user.is_authenticated():
 		return render(request, 'profile.html', {'user': request.user})
