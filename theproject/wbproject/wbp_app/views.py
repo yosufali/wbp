@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 def index(request):
 	'''
@@ -32,5 +33,6 @@ def login_user(request):
 	return render(request, 'index.html', {})
 
 def logout_user(request):
-	logout(request)
-	return render(request, 'index.html', {'loggedout': True})
+
+    logout(request)
+    return render(request, 'index.html', {'loggedout': True})
