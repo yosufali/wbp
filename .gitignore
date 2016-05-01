@@ -1,2 +1,3 @@
 .vagrant
 wbp-env/
+*.pyc
