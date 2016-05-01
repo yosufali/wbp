@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title> My Profile </title>
+    <title> {{user.first_name}}'s Profile </title>
 
     <!-- Bootstrap -->
     <link href="https://bootswatch.com/simplex/bootstrap.min.css" rel="stylesheet">
@@ -33,13 +33,49 @@
           <ul class="nav navbar-nav navbar-right">
             <li> <a href="#"> Notifications </a> </li>
             <li> <a href="#"> Settings </a> </li>
-            <li> <a href="#"> Logged in as: <b>{{ user.username }}</b> </a> </li>
+            <li> <a href="#"> Logged in as: <b>{{ user.first_name }}</b> </a> </li>
             <li> <a href="/logout/"> Logout </a> </li>
           </ul>
         </div>
       </div>
     </nav>
     <!-- NAvigation ends -->
+
+    <div class="container-flui">
+      <div class="row">
+
+        <div class="col-md-4">
+          <p> <img src="{{ profile.photo.url }}"> </p>
+        </div>
+        <div class="col-md-4">
+
+          <p> <h4>
+          {{ profile.title }} {{ user.first_name }} {{ user.last_name }}
+          </h4></p>
+
+          <p> <label><b> Role: </b></label> {{profile.role}} </p>
+          
+          <p> <label><b> Email Address: </b></label> {{user.email}} </p>
+
+          <p> <label><b> Extension Number: </b></label> {{ profile.extension_no }} </p>
+
+          <p> <label><b> Mobile Number: </b></label> {{profile.mobile_no}} </p>
+
+          <p> <label><b> Emergency Contact: </b></label> {{profile.emergency_contact}} </p>
+
+          <p> <label><b> PhD Status: </b></label> {{profile.phd_status}} </p>
+
+          <p> <label><b> Emploability Status: </b></label> {{profile.employable}} </p>
+
+          <p> <label><b> Maximum Work Hours: </b></label> {{profile.max_hours}} </p>
+
+        </div>
+
+        <div class="col-md-4">
+          <h4> {{ user.first_name}}'s Modules </h4>
+        </div>
+      </div>
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

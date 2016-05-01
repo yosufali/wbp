@@ -1,13 +1,17 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
-
+from .models import Profile
 def index(request):
 	'''
 	This method redirects to a users profile if they are logged in,
 	otherwise, it loads the home (login) page
 	'''
 	if request.user.is_authenticated():
-		return render(request, 'profile.html', {})
+		up = Profile.objects.get(user=request.user)
+		if up is not None:
+			return render(request, 'profile.html', {'user': request.user, 'profile': up})
+		else:
+			return render(request, 'profile.html', {'user': request.user})
 	return render(request, 'index.html', {})
 
 def login_user(request):
@@ -17,8 +21,9 @@ def login_user(request):
 	'''
 
 	if request.user.is_authenticated():
-		return render(request, 'profile.html', {'user': request.user})
-	elif request.method == 'POST':	
+		up = Profile.objects.get(user=request.user)
+		return render(request, 'profile.html', {'user': request.user, 'profile': up})
+	elif request.method == 'POST':
 		username = request.POST['username_login']
 		password = request.POST['password_login']
 
@@ -27,7 +32,8 @@ def login_user(request):
 		if user is not None:
 			if user.is_active:
 				login(request, user)
-				return render(request, 'profile.html', {'user': user})
+				up = Profile.objects.get(user=request.user)
+				return render(request, 'profile.html', {'user': user, 'profile': up})
 			else:
 				return render(request, 'index.html', {'active': False})
 		else:

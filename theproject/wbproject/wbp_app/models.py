@@ -17,3 +17,4 @@ class Profile(models.Model):
     phd_status = models.BooleanField(default=False)
     employable = models.BooleanField(default=True)
     max_hours = models.IntegerField(null=True, blank=True)
+    photo = models.ImageField(upload_to='photos/')
