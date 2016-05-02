@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile
+from .models import Profile, Module, Lecture
 
 # Register your models here.
 
@@ -10,5 +10,22 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ["user", "title", "role", "extension_no", "mobile_no",
                 "emergency_contact", "phd_status", "employable", "max_hours"]
 
-# Actually registers the above list wit the Django admin
+
+class ModuleAdmin(admin.ModelAdmin):
+	'''
+	Shows the Module fields in the default Django admin
+	'''
+	list_display = ["module_code", "name", "leader","moodle_link"]
+
+
+class LectureAdmin(admin.ModelAdmin):
+	'''
+	Shows the Lecture fileds in the default Django admin
+	'''
+	list_display = ["lecture_date", "lecture_start_time", "lecture_end_time"] 
+
+# Actually registers the above with the Django admin
 admin.site.register(Profile, ProfileAdmin)
+admin.site.register(Module, ModuleAdmin)
+admin.site.register(Lecture, LectureAdmin)
+
