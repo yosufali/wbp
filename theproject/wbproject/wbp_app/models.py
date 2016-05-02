@@ -42,6 +42,5 @@ class Lecture(models.Model):
     lecture_end_time = models.TimeField()
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
 
-    ## id won't work
-    # def __unicode__(self):
-    # 	return self.id
+    def __unicode__(self):
+    	return "%s %s %s" % (self.module.name, self.lecture_date, self.lecture_start_time)
