@@ -18,3 +18,7 @@ class Profile(models.Model):
     employable = models.BooleanField(default=True)
     max_hours = models.IntegerField(null=True, blank=True)
     photo = models.ImageField(upload_to='photos/')
+
+    def __unicode__(self):
+    	return self.user.username
+
