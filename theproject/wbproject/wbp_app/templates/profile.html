@@ -73,6 +73,9 @@
 
         <div class="col-md-4">
           <h4> {{ user.first_name}}'s Modules </h4>
+          {% for m in modules %}
+            <p> {{ m.module_code}} {{ m.name }} </p>
+          {% endfor %}
         </div>
       </div>
     </div>
