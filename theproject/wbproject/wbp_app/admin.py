@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Module, Lecture
+from .models import Profile, Module, Lecture, Tutorial
 
 # Register your models here.
 
@@ -24,8 +24,14 @@ class LectureAdmin(admin.ModelAdmin):
 	'''
 	list_display = ["lecture_date", "lecture_start_time", "lecture_end_time"] 
 
+class TutorialAdmin(admin.ModelAdmin):
+	'''
+	Shows the Tutorial fields in the default Django admin
+	'''
+	list_display = ["tutorial_date", "tutorial_start_time", "tutorial_end_time", "tutorial_group", "tutorial_location"]
+
 # Actually registers the above with the Django admin
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Module, ModuleAdmin)
 admin.site.register(Lecture, LectureAdmin)
-
+admin.site.register(Tutorial, TutorialAdmin)

@@ -47,3 +47,17 @@ class Lecture(models.Model):
 
     def __unicode__(self):
     	return "%s %s %s" % (self.module.name, self.lecture_date, self.lecture_start_time)
+
+class Tutorial(models.Model):
+    '''
+    Tutorial class that stores information about a particular tutorial
+    for a particular module
+    Including which module and which users support it
+    '''
+    tutorial_date = models.DateField()
+    tutorial_start_time = models.TimeField()
+    tutorial_end_time = models.TimeField()
+    tutorial_group = models.CharField(max_length=2)
+    tutorial_location = models.CharField(max_length=100)
+    module = models.ForeignKey(Module, on_delete=models.CASCADE)
+    users = models.ManyToManyField(User)
