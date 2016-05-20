@@ -43,6 +43,7 @@ class Lecture(models.Model):
     lecture_date = models.DateField()
     lecture_start_time = models.TimeField()
     lecture_end_time = models.TimeField()
+    lecture_location = models.CharField(max_length=100)
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
 
     def __unicode__(self):

@@ -22,7 +22,7 @@ class LectureAdmin(admin.ModelAdmin):
 	'''
 	Shows the Lecture fileds in the default Django admin
 	'''
-	list_display = ["lecture_date", "lecture_start_time", "lecture_end_time"] 
+	list_display = ["lecture_date", "lecture_start_time", "lecture_end_time", "lecture_location"] 
 
 class TutorialAdmin(admin.ModelAdmin):
 	'''
