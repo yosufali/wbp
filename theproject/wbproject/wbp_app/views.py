@@ -48,3 +48,60 @@ def logout_user(request):
 
     logout(request)
     return render(request, 'index.html', {'loggedout': True})
+
+# ----------------------------------------------
+# API Stuff
+
+from rest_framework import status
+from rest_framework.views import APIView
+from django.http import Http404
+from rest_framework.response import Response
+from .models import Profile
+from .serializers import ProfileSerializer
+
+
+class ProfileList(APIView):
+    """
+    List all Profiles, or create a new profile.
+    """
+
+    def get(self, request, format=None):
+    	profiles = Profile.objects.all()
+    	serializer = ProfileSerializer(profiles, many=True)
+    	return Response(serializer.data)
+
+    def post(self, request, format=None):
+    	serializer = ProfileSerializer(data=request.data)
+    	if serializer.is_valid():
+    		serializer.save()
+    		return Response(serializer.data, status=status.HTTP_201_CREATED)
+    	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProfileDetail(APIView):
+    """
+    Retrieve, update or delete a profile.
+    """
+
+    def get_object(self, user_id):
+    	try:
+    		return Profile.objects.get(user_id=user_id)
+    	except Profile.DoesNotExist:
+    		raise Http404
+
+    def get(self, request, user_id, format=None):
+    	profile = self.get_object(user_id)
+    	serializer = ProfileSerializer(profile)
+    	return Response(serializer.data)
+
+    def put(self, request, user_id, format=None):
+    	profile = self.get_object(user_id)
+    	serializer = ProfileSerializer(profile, data=request.data)
+    	if serializer.is_valid:
+    		serializer.save()
+    		return Response(serializer.data)
+    	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, user_id, format=None):
+    	profile = self.get_object(user_id)
+    	profile.delete()
+    	return Response(status=status.HTTP_204_NO_CONTENT)
