@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from . import views
 from rest_framework.urlpatterns import format_suffix_patterns
+from django.conf.urls import include
 
 urlpatterns = [
 	url(r'^$', views.index, name="index"),
@@ -9,6 +10,16 @@ urlpatterns = [
 
 	url(r'^api/profiles/$', views.ProfileList.as_view()),
 	url(r'^api/profiles/(?P<user_id>[0-9]+)/$', views.ProfileDetail.as_view()),
+
+	url(r'^api/users/$', views.UserList.as_view()),
+	url(r'^api/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
+
+# Lets me log into the browsable API
+urlpatterns += [
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
+]
+

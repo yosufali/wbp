@@ -58,12 +58,23 @@ from django.http import Http404
 from rest_framework.response import Response
 from .models import Profile
 from .serializers import ProfileSerializer
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
+from rest_framework import generics
 
+from rest_framework import permissions
+from .permissions import IsOwnerOrReadOnly
+
+# Profile Views
 
 class ProfileList(APIView):
     """
     List all Profiles, or create a new profile.
     """
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    	IsOwnerOrReadOnly)
+
 
     def get(self, request, format=None):
     	profiles = Profile.objects.all()
@@ -77,10 +88,16 @@ class ProfileList(APIView):
     		return Response(serializer.data, status=status.HTTP_201_CREATED)
     	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def perform_create(self, serializer):
+    	serializer.save(owner=self.request.user)
+
 class ProfileDetail(APIView):
     """
     Retrieve, update or delete a profile.
     """
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    	IsOwnerOrReadOnly)
 
     def get_object(self, user_id):
     	try:
@@ -105,3 +122,14 @@ class ProfileDetail(APIView):
     	profile = self.get_object(user_id)
     	profile.delete()
     	return Response(status=status.HTTP_204_NO_CONTENT)
+
+# User Views
+
+class UserList(generics.ListAPIView):
+	queryset = User.objects.all()
+	serializer_class = UserSerializer
+
+class UserDetail(generics.RetrieveAPIView):
+	queryset = User.objects.all()
+	serializer_class = UserSerializer
+
