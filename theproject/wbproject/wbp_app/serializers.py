@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile
+from .models import Profile, Module
 from django.contrib.auth.models import User
 
 
@@ -19,3 +19,10 @@ class ProfileSerializer(serializers.ModelSerializer):
 		fields = ('user', 'title', 'role', 'extension_no',
 		'mobile_no', 'emergency_contact', 'phd_status',
 		'employable', 'max_hours', 'photo', 'owner')
+
+class ModuleSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Module
+		fileds = ('module_code', 'name', 'leader',
+			'moodle_link', 'users')

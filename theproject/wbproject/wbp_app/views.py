@@ -57,9 +57,8 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework.response import Response
 from .models import Profile
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer, UserSerializer, ModuleSerializer
 from django.contrib.auth.models import User
-from .serializers import UserSerializer
 from rest_framework import generics
 
 from rest_framework import permissions
@@ -71,7 +70,6 @@ class ProfileList(APIView):
     """
     List all Profiles, or create a new profile.
     """
-
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
     	IsOwnerOrReadOnly)
 
@@ -133,3 +131,10 @@ class UserDetail(generics.RetrieveAPIView):
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
 
+class ModuleList(generics.ListAPIView):
+	queryset = Module.objects.all()
+	serializer_class = ModuleSerializer
+
+class ModuleDetail(generics.RetrieveAPIView):
+	queryset = Module.objects.all()
+	serializer_class = ModuleSerializer
