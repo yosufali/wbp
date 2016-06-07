@@ -65,3 +65,4 @@ class Tutorial(models.Model):
 
 # TODO:
 # Events - the model, serializer, views and url endpoints
+# Log - ^same
