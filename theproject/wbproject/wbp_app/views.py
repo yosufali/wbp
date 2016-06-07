@@ -56,8 +56,8 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework.response import Response
-from .models import Profile
-from .serializers import ProfileSerializer, UserSerializer, ModuleSerializer
+from .models import Profile, Module, Lecture
+from .serializers import ProfileSerializer, UserSerializer, ModuleSerializer, LectureSerializer
 from django.contrib.auth.models import User
 from rest_framework import generics
 
@@ -131,6 +131,8 @@ class UserDetail(generics.RetrieveAPIView):
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
 
+# Module Views
+
 class ModuleList(generics.ListAPIView):
 	queryset = Module.objects.all()
 	serializer_class = ModuleSerializer
@@ -138,3 +140,13 @@ class ModuleList(generics.ListAPIView):
 class ModuleDetail(generics.RetrieveAPIView):
 	queryset = Module.objects.all()
 	serializer_class = ModuleSerializer
+
+# Lecture Views
+
+class LectureList(generics.ListAPIView):
+	queryset = Lecture.objects.all()
+	serializer_class = LectureSerializer
+
+class LectureDetail(generics.RetrieveAPIView):
+	queryset = Lecture.objects.all()
+	serializer_class = LectureSerializer

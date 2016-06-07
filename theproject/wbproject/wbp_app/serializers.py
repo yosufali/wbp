@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from .models import Profile, Module
+from .models import Profile, Module, Lecture
 from django.contrib.auth.models import User
-
 
 class UserSerializer(serializers.ModelSerializer):
 	#profile = serializers.PrimaryKeyRelatedField()
@@ -26,3 +25,11 @@ class ModuleSerializer(serializers.ModelSerializer):
 		model = Module
 		fileds = ('module_code', 'name', 'leader',
 			'moodle_link', 'users')
+
+class LectureSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Lecture
+		fields = ('lecture_date', 'lecture_start_time',
+			'lecture_end_time', 'lecture_location',
+			'module')
