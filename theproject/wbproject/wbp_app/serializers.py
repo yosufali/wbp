@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, Module, Lecture
+from .models import Profile, Module, Lecture, Tutorial
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -30,6 +30,14 @@ class LectureSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Lecture
-		fields = ('lecture_date', 'lecture_start_time',
+        fields = ('id','lecture_date', 'lecture_start_time',
 			'lecture_end_time', 'lecture_location',
 			'module')
+
+class TutorialSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Tutorial
+        fields = ("id","tutorial_date", "tutorial_start_time", 
+			"tutorial_end_time", "tutorial_group",
+			"tutorial_location", "module", "users")

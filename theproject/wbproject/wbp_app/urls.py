@@ -19,6 +19,9 @@ urlpatterns = [
 
 	url(r'^api/lectures/$', views.LectureList.as_view()),
 	url(r'^api/lectures/(?P<pk>[0-9]+)/$', views.LectureDetail.as_view()),
+
+	url(r'^api/tutorials/$', views.TutorialList.as_view()),
+	url(r'^api/tutorials/(?P<pk>[0-9]+)/$', views.TutorialDetail.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
