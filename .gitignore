@@ -1,3 +1,4 @@
 .vagrant
 wbp-env/
 *.pyc
+node_modules/

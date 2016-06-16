@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from .models import Profile, Module
+
 def index(request):
 	'''
 	This method redirects to a users profile if they are logged in,
@@ -70,9 +71,6 @@ class ProfileList(APIView):
     """
     List all Profiles, or create a new profile.
     """
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-    	IsOwnerOrReadOnly)
-
 
     def get(self, request, format=None):
     	profiles = Profile.objects.all()
@@ -93,9 +91,6 @@ class ProfileDetail(APIView):
     """
     Retrieve, update or delete a profile.
     """
-
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-    	IsOwnerOrReadOnly)
 
     def get_object(self, user_id):
     	try:
@@ -122,6 +117,9 @@ class ProfileDetail(APIView):
     	return Response(status=status.HTTP_204_NO_CONTENT)
 
 # User Views
+
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 class UserList(generics.ListAPIView):
 	queryset = User.objects.all()
