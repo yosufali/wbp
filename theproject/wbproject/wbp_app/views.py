@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
-from .models import Profile, Module
+from .models import Profile, Module, Lecture
 
 def index(request):
 	'''
@@ -11,11 +11,27 @@ def index(request):
 		user_profile = Profile.objects.get(user=request.user)
 		modules = Module.objects.filter(users=request.user)
 
-		if up is not None:
-			return render(request, 'profile.html', {'user': request.user, 'profile': user_profile, 'modules': modules})
-		else:
-			return render(request, 'profile.html', {'user': request.user})
+		lectures = {}
+
+		from itertools import chain
+		for m in modules:
+			i = 0
+			for l in Lecture.objects.filter(module=m):
+				lectures[i] = l
+				i=i+1
+
+		return render(request, 'profile.html', {'user': request.user, 'profile': user_profile, 'modules': modules, 'lectures': lectures})
 	return render(request, 'index.html', {})
+
+
+def show_modules(request):
+	if request.user.is_authenticated():
+		user_profile = Profile.objects.get(user=request.user)
+		modules = Module.objects.filter(users=request.user)
+
+		return render(request, 'myModules.html', {'user': request.user, 'profile': user_profile, 'modules': modules})
+	return render(request, 'index.html', {})
+
 
 def login_user(request):
 	''' 
