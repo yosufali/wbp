@@ -3,6 +3,9 @@
 	<head>
 		<title> My Modules</title>
 		<link href="https://bootswatch.com/simplex/bootstrap.min.css" rel="stylesheet">
+		    <link rel='stylesheet' href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.3/fullcalendar.min.css" />
+
+   			<link rel='stylesheet' href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.3/fullcalendar.print.css" />
 	</head>
 	<body>
 
@@ -34,6 +37,79 @@
 	      </div>
 	    </nav>
 	    <!-- Navigation ends -->
+
+
+	    <div class="container-fluid">
+	    	<div class="row">
+	    		<div class="col-sm-4 text-center">
+	    			<h3>Module list</h3>
+	    			{% for m in modules %}
+            			<p> <a onclick="update('{{m.module_code}}')"> {{ m.module_code}} {{ m.name }} </a> </p>
+          			{% endfor %}
+	    		</div>
+
+	    		<div class="col-sm-8">
+	    			<h3 class="text-center"> Module Info </h3>
+	    			<div class="col-sm-6 text-center">
+	    				<h4> General Information </h4>
+		    			<p id="code"> </p>
+		    			<p id="name"> </p>
+		    			<p id="link"> <a id="alink" href="#"> </a> </p>
+	    			</div>
+
+	    			<div class="col-sm-6 text-center">
+	    				<h4> Supporting Staff </h4>
+	    				<p id="users"> </p>	
+	    			</div>
+          			
+
+	    		</div>
+	    	</div>
+	    </div>
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+
+	    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.3/fullcalendar.min.js"></script>
+
+	    <script>
+	    	function update(x) {
+
+	    		{% for m in modules %}
+
+	    			var code = "{{m.module_code}}";
+
+	    			if (code == x) {
+	    				var name = "{{m}}";
+	    				var link = "{{m.moodle_link}}";
+
+	    				console.log(name);
+	    				console.log(link);
+
+	    				var users = []
+
+	    				{% for u in m.users.all %}
+
+	    					users.push(" <p> {{u.first_name}} {{u.last_name}} </p> ");
+
+	    				{% endfor %}
+
+	    				console.log(users);
+	    			}
+
+	    		{% endfor %}
+
+	    		document.getElementById("code").innerHTML = x;
+	    		document.getElementById("name").innerHTML = name;
+	    		document.getElementById("alink").innerHTML = link;
+	    		$("#alink").attr("href", link);
+	    		document.getElementById("users").innerHTML = users;
+	    	}
+	    </script>
 
 	</body>
 </html>

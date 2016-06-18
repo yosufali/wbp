@@ -123,9 +123,16 @@
           events: [
         {% for l in lectures %}
           {
-            'title': '{{l.module}}',
+            'title': 'Lecture: {{l.module}}',
             'start': '{{l.lecture_date | date:"Y-m-d"}}T{{l.lecture_start_time | time:"H:i:s"}}',
             'end': '{{l.lecture_date | date:"Y-m-d"}}T{{l.lecture_end_time | time:"H:i:s"}}'
+          },
+        {% endfor %}
+        {% for t in tutorials %}
+          {
+            'title': 'Tutorial: {{t.module}}',
+            'start': '{{t.tutorial_date | date:"Y-m-d"}}T{{t.tutorial_start_time | time:"H:i:s"}}',
+            'end': '{{t.tutorial_date | date:"Y-m-d"}}T{{t.tutorial_end_time | time:"H:i:s"}}'
           },
         {% endfor %}
       ]
