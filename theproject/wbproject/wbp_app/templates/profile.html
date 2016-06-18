@@ -9,6 +9,11 @@
 
     <!-- Bootstrap -->
     <link href="https://bootswatch.com/simplex/bootstrap.min.css" rel="stylesheet">
+
+    <link rel='stylesheet' href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.3/fullcalendar.min.css" />
+
+    <link rel='stylesheet' href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.3/fullcalendar.print.css" />
+
   </head>
   <body>
     <!-- Navigation begins -->
@@ -21,7 +26,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"> Management System </a>
+          <a class="navbar-brand" href="/"> Management System </a>
         </div>
 
         <div class="collapse navbar-collapse" id="collapse1">
@@ -40,6 +45,8 @@
       </div>
     </nav>
     <!-- Navigation ends -->
+
+    <!-- Personal info begins -->
 
     <div class="container-fluid">
       <div class="row">
@@ -80,14 +87,64 @@
       </div>
     </div>
 
+    <!-- Personal info ends -->
+
+    <!-- Calendar begins -->
+
     <div class="container-fluid">
       <p> My Calendar </p>
-      {{ lectures }}
+<!--       {% for l in lectures %}
+      {{ l.lecture_date }}
+      {% endfor %} -->
+      <div id="test"></div>
+
+      <button id="prevBtn"> Previous </button>
+      <button id="nextBtn"> Next </button>
+
+      <div id="calendar">
+      </div>
+
     </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Calendar ends -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.3/fullcalendar.min.js"></script>
+
+    <script>
+
+      $(document).ready(function() {
+        $('#calendar').fullCalendar({
+          events: [
+        {% for l in lectures %}
+          {
+            'title': '{{l.module}}',
+            'start': '{{l.lecture_date | date:"Y-m-d"}}T{{l.lecture_start_time | time:"H:i:s"}}',
+            'end': '{{l.lecture_date | date:"Y-m-d"}}T{{l.lecture_end_time | time:"H:i:s"}}'
+          },
+        {% endfor %}
+      ]
+        })
+      });
+
+      $('#prevBtn').click(function() {
+        $('#calendar').fullCalendar('prev');
+      });
+
+      $('#nextBtn').click(function() {
+        $('#calendar').fullCalendar('next');
+      });
+
+      $(document).ready(function() {
+        $('#test').html(events);
+      });
+      
+
+    </script>
   </body>
 </html>

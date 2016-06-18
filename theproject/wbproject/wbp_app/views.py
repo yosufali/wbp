@@ -11,15 +11,11 @@ def index(request):
 		user_profile = Profile.objects.get(user=request.user)
 		modules = Module.objects.filter(users=request.user)
 
-		lectures = {}
-
-		from itertools import chain
+		lectures = []
 		for m in modules:
-			i = 0
-			for l in Lecture.objects.filter(module=m):
-				lectures[i] = l
-				i=i+1
-
+			lectures.extend(list(Lecture.objects.filter(module=m)))
+		# for i in range(len(modules)):
+		 
 		return render(request, 'profile.html', {'user': request.user, 'profile': user_profile, 'modules': modules, 'lectures': lectures})
 	return render(request, 'index.html', {})
 
