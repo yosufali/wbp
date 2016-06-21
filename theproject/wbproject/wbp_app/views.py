@@ -66,6 +66,17 @@ def logout_user(request):
     logout(request)
     return render(request, 'index.html', {'loggedout': True})
 
+from django.contrib.auth.views import password_reset, password_reset_confirm
+from django.core.urlresolvers import reverse
+
+def reset(request):
+
+	return password_reset(request, post_reset_redirect=reverse('index'))
+
+def reset_confirm(request, uidb64=None, token=None):
+
+	return password_reset_confirm(request, uidb64=uidb36, token=token, post_reset_redirect=reverse('index'))
+
 # ----------------------------------------------
 # API Stuff
 

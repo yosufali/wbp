@@ -11,7 +11,8 @@ urlpatterns = [
 	url(r'^login/$', views.login_user, name="login"),
 	url(r'^logout/$', views.logout_user, name="logout"),
 
-
+	url(r'^reset/$', views.reset, name="reset"),
+	url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.reset_confirm, name='password_reset_confirm'),
 
 
 	url(r'^api/profiles/$', views.ProfileList.as_view()),
