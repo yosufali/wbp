@@ -22,6 +22,9 @@ def index(request):
 
 
 def show_modules(request):
+	'''
+	This method is used to load up the /modules/ page.
+	'''
 	if request.user.is_authenticated():
 		user_profile = Profile.objects.get(user=request.user)
 		modules = Module.objects.filter(users=request.user)

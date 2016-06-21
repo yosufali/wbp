@@ -9,6 +9,7 @@
 	</head>
 	<body>
 
+		<!-- Navigation begins -->
 		<nav class="navbar navbar-default">
 	      <div class="container-fluid">
 	        <div class="navbar-header">
@@ -38,7 +39,7 @@
 	    </nav>
 	    <!-- Navigation ends -->
 
-
+	    <!-- Module information begins -->
 	    <div class="container-fluid">
 	    	<div class="row">
 	    		<div class="col-sm-4 text-center">
@@ -62,10 +63,23 @@
 	    				<p id="users"> </p>	
 	    			</div>
           			
-
 	    		</div>
 	    	</div>
 	    </div>
+	    <!-- Module information ends -->
+
+	    <br><br><br><br>
+	    <!-- Module calendar begins -->
+	    <div class="container-fluid">
+		    <button id="prevBtn"> Previous </button>
+	      	<button id="nextBtn"> Next </button>
+
+		    <div id="calendar">
+		    </div>
+	    </div>
+
+
+	    <!-- Module calendar ends -->
 
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -77,6 +91,16 @@
 	    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.3/fullcalendar.min.js"></script>
 
 	    <script>
+
+    		$(document).ready(function() {
+    			var code1 = document.getElementById("code").innerHTML;
+	    		console.log(code1 + "LOL");
+	    		
+		        $('#calendar').fullCalendar({
+		        	
+		        });
+      		});
+
 	    	function update(x) {
 
 	    		{% for m in modules %}
@@ -109,6 +133,15 @@
 	    		$("#alink").attr("href", link);
 	    		document.getElementById("users").innerHTML = users;
 	    	}
+
+	      $('#prevBtn').click(function() {
+	        $('#calendar').fullCalendar('prev');
+	      });
+
+	      $('#nextBtn').click(function() {
+	        $('#calendar').fullCalendar('next');
+	      });
+
 	    </script>
 
 	</body>
