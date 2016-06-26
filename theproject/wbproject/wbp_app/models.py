@@ -62,7 +62,3 @@ class Tutorial(models.Model):
     tutorial_location = models.CharField(max_length=100)
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
     users = models.ManyToManyField(User)
-
-# TODO:
-# Events - the model, serializer, views and url endpoints
-# Log - ^same
