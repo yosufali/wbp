@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from .models import Profile, Module, Lecture
+from django.contrib.auth.views import password_reset, password_reset_confirm
+from django.core.urlresolvers import reverse
 
 def index(request):
 	'''
@@ -32,6 +34,14 @@ def show_modules(request):
 		return render(request, 'myModules.html', {'user': request.user, 'profile': user_profile, 'modules': modules})
 	return render(request, 'index.html', {})
 
+def show_settings(request):
+
+	if request.user.is_authenticated():
+		user_profile = Profile.objects.get(user=request.user)
+		modules = Module.objects.filter(users=request.user)
+
+		return render(request, 'settings.html', {'user': request.user, 'profile': user_profile, 'modules': modules})
+	return render(request, 'index.html', {})
 
 def login_user(request):
 	''' 
@@ -65,9 +75,6 @@ def logout_user(request):
 
     logout(request)
     return render(request, 'index.html', {'loggedout': True})
-
-from django.contrib.auth.views import password_reset, password_reset_confirm
-from django.core.urlresolvers import reverse
 
 def reset(request):
 
